@@ -70,6 +70,8 @@
 \RequirePackage{xspace}        % Remove duplicated spaces
 \RequirePackage[export]{adjustbox}
 \RequirePackage[dvipsnames]{xcolor}
+\RequirePackage{multicol}
+\RequirePackage{wrapfig}
 
 %----------------------------------------------------------------------------------------
 %	CONFIGURE LISTINGS
@@ -143,6 +145,12 @@ literate=
     sensitive=true,
     stringstyle={\color{ForestGreen}\ttfamily},
 }
+
+%----------------------------------------------------------------------------------------
+%	CONFIGURE MULTI-LINE COMMENTS
+%----------------------------------------------------------------------------------------
+
+\newcommand{\comment}[1]{}
 
 %----------------------------
 % Parametrized dependencies
