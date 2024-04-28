@@ -5,3 +5,17 @@ test/**/*.pdf
 .vscode
 /*.pdf
 *.log
+*.app
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.lot
+*.out
+*.xml
+*.gz
+*.toc
+*.lol
