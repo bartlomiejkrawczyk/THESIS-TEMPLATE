@@ -68,6 +68,81 @@
 \RequirePackage{tocloft}       % Custom ToC/LoF/LoT
 \RequirePackage{url}           % URL-sensitive line breaks
 \RequirePackage{xspace}        % Remove duplicated spaces
+\RequirePackage[export]{adjustbox}
+\RequirePackage[dvipsnames]{xcolor}
+
+%----------------------------------------------------------------------------------------
+%	CONFIGURE LISTINGS
+%----------------------------------------------------------------------------------------
+
+\RequirePackage{color}
+
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.9,0,0}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+\definecolor{pyellow}{rgb}{0.9,0.7,0.0}
+
+\lstset{
+    language=Java,
+    showspaces=false,
+    showtabs=false,
+    breaklines=true,
+    showstringspaces=false,
+    breakatwhitespace=true,
+    numbers=left,
+    tabsize=4,
+    stepnumber=1,
+    commentstyle=\color{pgrey},
+    keywordstyle=\color{pblue},
+    stringstyle=\color{pgreen},
+    basicstyle=\footnotesize\ttfamily,
+    moredelim=[il][\textcolor{pyellow}]{$$},
+    moredelim=[is][\textcolor{pyellow}]{\%\%}{\%\%}
+}
+
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
+
+\lstdefinelanguage{json}{
+showstringspaces=false,
+literate=
+*{0}{{{\color{numb}0}}}{1}
+{1}{{{\color{numb}1}}}{1}
+{2}{{{\color{numb}2}}}{1}
+{3}{{{\color{numb}3}}}{1}
+{4}{{{\color{numb}4}}}{1}
+{5}{{{\color{numb}5}}}{1}
+{6}{{{\color{numb}6}}}{1}
+{7}{{{\color{numb}7}}}{1}
+{8}{{{\color{numb}8}}}{1}
+{9}{{{\color{numb}9}}}{1}
+{:}{{{\color{punct}{:}}}}{1}
+{,}{{{\color{punct}{,}}}}{1}
+{\{}{{{\color{delim}{\{}}}}{1}
+{\}}{{{\color{delim}{\}}}}}{1}
+{[}{{{\color{delim}{[}}}}{1}
+{]}{{{\color{delim}{]}}}}{1},
+}
+
+\lstdefinelanguage{kotlin}{
+    comment=[l]{//},
+    commentstyle={\color{gray}\ttfamily},
+    emph={filter, first, firstOrNull, forEach, lazy, map, mapNotNull, println},
+    emphstyle={\color{OrangeRed}},
+    identifierstyle=\color{black},
+    keywords={!in, !is, abstract, actual, annotation, as, as?, break, by, catch, class, companion, const, constructor, continue, crossinline, data, delegate, do, dynamic, else, enum, expect, external, false, field, file, final, finally, for, fun, get, if, import, in, infix, init, inline, inner, interface, internal, is, lateinit, noinline, null, object, open, operator, out, override, package, param, private, property, protected, public, receiveris, reified, return, return@, sealed, set, setparam, super, suspend, tailrec, this, throw, true, try, typealias, typeof, val, var, vararg, when, where, while},
+    keywordstyle={\color{NavyBlue}\bfseries},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]",
+    morestring=[s]{"""*}{*"""},
+    ndkeywords={@Deprecated, @JvmField, @JvmName, @JvmOverloads, @JvmStatic, @JvmSynthetic, Array, Byte, Double, Float, Int, Integer, Iterable, Long, Runnable, Short, String, Any, Unit, Nothing},
+    ndkeywordstyle={\color{BurntOrange}\bfseries},
+    sensitive=true,
+    stringstyle={\color{ForestGreen}\ttfamily},
+}
 
 %----------------------------
 % Parametrized dependencies
@@ -168,7 +243,7 @@
 \setcounter{secnumdepth}{3}
 % List formatting
 \setlist[itemize,1]{topsep=2pt,label=\large$\bullet$, leftmargin=28pt}
-\setlist[itemize,2]{topsep=2pt,leftmargin=18pt}
+\setlist[itemize,2]{topsep=2pt,label=$\bullet$,leftmargin=18pt}
 \setlist[itemize,3]{topsep=2pt,leftmargin=18pt}
 \setlist[enumerate,1]{topsep=2pt,leftmargin=24pt}
 \setlist[enumerate,2]{topsep=2pt,leftmargin=16pt}
@@ -221,6 +296,8 @@
         \renewcommand{\listfigurename}{Spis rysunków}
         \renewcommand{\listtablename}{Spis tabel}
         \renewcommand{\tablename}{Tabela}
+        \renewcommand{\lstlistlistingname}{Fragmenty kodu}
+        \renewcommand{\lstlistingname}{Fragment kodu}
     }
 }
 \newcommand{\langeng}{
@@ -239,6 +316,7 @@
         \renewcommand{\listfigurename}{List of Figures}
         \renewcommand{\listtablename}{List of Tables}
         \renewcommand{\tablename}{Table}
+        \renewcommand{\lstlistlistingname}{Code Fragments}
     }
 }
 
@@ -444,6 +522,15 @@
 \newcommand{\listoftablestoc}{
     \listoftables
     \addcontentsline{toc}{section}{\listtablename}
+}
+
+%-----------------------
+% List of Codes
+%-----------------------
+\renewcommand*\l@table{\@dottedtocline{1}{0.5em}{2.25em}}
+\newcommand{\lstlistlistingnametoc}{
+    \lstlistoflistings
+    \addcontentsline{toc}{section}{\lstlistlistingname}
 }
 
 %--------------------------
