@@ -35,15 +35,15 @@
 \setlength\abovecaptionskip{10\p@}
 \setlength\belowcaptionskip{0\p@}
 \long\def\@makecaption#1#2{%
-  \vskip\abovecaptionskip
-  \sbox\@tempboxa{#1: #2}%
-  \ifdim \wd\@tempboxa >\hsize
-    #1: #2\par
-  \else
-    \global \@minipagefalse
-    \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
-  \fi
-  \vskip\belowcaptionskip}
+    \vskip\abovecaptionskip
+    \sbox\@tempboxa{#1: #2}%
+    \ifdim \wd\@tempboxa >\hsize
+        #1: #2\par
+    \else
+        \global \@minipagefalse
+        \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
+    \fi
+    \vskip\belowcaptionskip}
 
 %---------------------
 % Basic dependencies
@@ -122,37 +122,37 @@
     % In LuaTeX, we can prevent one-letter words
     % from beging at the end of the line.
     \begin{luacode}
-    local debug = false
-    local glyph_id = node.id "glyph"
-    local glue_id  = node.id "glue"
-    local hlist_id = node.id "hlist"
+        local debug = false
+        local glyph_id = node.id "glyph"
+        local glue_id  = node.id "glue"
+        local hlist_id = node.id "hlist"
 
-    local prevent_single_letter = function (head)
+        local prevent_single_letter = function (head)
         while head do
-            if head.id == glyph_id then
-                if unicode.utf8.match(unicode.utf8.char(head.char),"%a") then     -- is a letter
-                    if head.prev.id == glue_id and head.next.id == glue_id then   -- is one letter word
+        if head.id == glyph_id then
+        if unicode.utf8.match(unicode.utf8.char(head.char),"%a") then     -- is a letter
+        if head.prev.id == glue_id and head.next.id == glue_id then   -- is one letter word
 
-                        local p = node.new("penalty")
-                        p.penalty = 10000
+        local p = node.new("penalty")
+        p.penalty = 10000
 
-                        if debug then
-                            local w = node.new("whatsit","pdf_literal")
-                            w.data = "q 1 0 1 RG 1 0 1 rg 0 0 m 0 5 l 2 5 l 2 0 l b Q"
-                            node.insert_after(head,head,w)
-                            node.insert_after(head,w,p)
-                        else
-                            node.insert_after(head,head,p)
-                        end
-                    end
-                end
-            end
-            head = head.next
+        if debug then
+        local w = node.new("whatsit","pdf_literal")
+        w.data = "q 1 0 1 RG 1 0 1 rg 0 0 m 0 5 l 2 5 l 2 0 l b Q"
+        node.insert_after(head,head,w)
+        node.insert_after(head,w,p)
+        else
+        node.insert_after(head,head,p)
+        end
+        end
+        end
+        end
+        head = head.next
         end
         return true
-    end
+        end
 
-    luatexbase.add_to_callback("pre_linebreak_filter",prevent_single_letter,"~")
+        luatexbase.add_to_callback("pre_linebreak_filter",prevent_single_letter,"~")
     \end{luacode}
 \fi
 
@@ -177,29 +177,29 @@
 \SetSectionFormatting{section}{0.5cm}{\FormatHangHeading{\Large}}{0.5cm}
 \let\oldsection\section
 \renewcommand{\section}{
-	\thispagestyle{plain}
-	\oldsection
+    \thispagestyle{plain}
+    \oldsection
 }
 
 %------------------
 % Header & footer
 %------------------
 \fancypagestyle{plain}{
-	\fancyhf{}
-	\renewcommand{\headrulewidth}{0pt}
-	\fancyfoot[LE,RO]{\thepage}
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    \fancyfoot[LE,RO]{\thepage}
 }
 \fancypagestyle{headings}{
-	\fancyhead{}
-	\renewcommand{\headrulewidth}{1pt}
-	\fancyheadoffset{0cm}
-	\fancyhead[RO]{\nouppercase{\thesection.\hspace{8pt}\leftmark}}
-	\fancyhead[LE]{\nouppercase{\thesection.\hspace{8pt}\leftmark}}
-	\fancyfoot[LE,RO]{\thepage}
+    \fancyhead{}
+    \renewcommand{\headrulewidth}{1pt}
+    \fancyheadoffset{0cm}
+    \fancyhead[RO]{\nouppercase{\thesection.\hspace{8pt}\leftmark}}
+    \fancyhead[LE]{\nouppercase{\thesection.\hspace{8pt}\leftmark}}
+    \fancyfoot[LE,RO]{\thepage}
 }
 % Section number in header
 \renewcommand{\sectionmark}[1]{
-	\markboth{#1}{#1}
+    \markboth{#1}{#1}
 }
 
 %---------------------
@@ -210,36 +210,36 @@
     \usepackage[polish]{babel}
     \usepackage{csquotes}
 
-	\newtheorem{theorem}{Twierdzenie}
-	\newtheorem{lemma}{Lemat}
-	\newtheorem{corollary}{Wniosek}
-	\newtheorem{definition}{Definicja}
-	\newtheorem{axiom}{Aksjomat}
-	\newtheorem{assumption}{Założenie}
+    \newtheorem{theorem}{Twierdzenie}
+    \newtheorem{lemma}{Lemat}
+    \newtheorem{corollary}{Wniosek}
+    \newtheorem{definition}{Definicja}
+    \newtheorem{axiom}{Aksjomat}
+    \newtheorem{assumption}{Założenie}
 
-	\AtBeginDocument{
-		\renewcommand{\listfigurename}{Spis rysunków}
-		\renewcommand{\listtablename}{Spis tabel}
-		\renewcommand{\tablename}{Tabela}
-	}
+    \AtBeginDocument{
+        \renewcommand{\listfigurename}{Spis rysunków}
+        \renewcommand{\listtablename}{Spis tabel}
+        \renewcommand{\tablename}{Tabela}
+    }
 }
 \newcommand{\langeng}{
     \newcommand{\@lang}{en}
     \usepackage[english]{babel}
     \usepackage{csquotes}
 
-	\newtheorem{theorem}{Theorem}
-	\newtheorem{lemma}{Lemma}
-	\newtheorem{corollary}{Corollary}
-	\newtheorem{definition}{Definition}
-	\newtheorem{axiom}{Axiom}
-	\newtheorem{assumption}{Assumption}
+    \newtheorem{theorem}{Theorem}
+    \newtheorem{lemma}{Lemma}
+    \newtheorem{corollary}{Corollary}
+    \newtheorem{definition}{Definition}
+    \newtheorem{axiom}{Axiom}
+    \newtheorem{assumption}{Assumption}
 
-	\AtBeginDocument{
-		\renewcommand{\listfigurename}{List of Figures}
-		\renewcommand{\listtablename}{List of Tables}
-		\renewcommand{\tablename}{Table}
-	}
+    \AtBeginDocument{
+        \renewcommand{\listfigurename}{List of Figures}
+        \renewcommand{\listtablename}{List of Tables}
+        \renewcommand{\tablename}{Table}
+    }
 }
 
 %-----------------
@@ -401,7 +401,7 @@
     \begin{figure}[ht]
         \vspace{-55pt}
         \noindent\makebox[\textwidth]{
-        \includegraphics[width=1.19\textwidth]{src/\@lang/authorship/\@faculty.pdf}
+            \includegraphics[width=1.19\textwidth]{src/\@lang/authorship/\@faculty.pdf}
         }
     \end{figure}
 }
@@ -414,7 +414,7 @@
     \begin{figure}[ht]
         \vspace{-55pt}
         \noindent\makebox[\textwidth]{
-        \includegraphics[width=1.19\textwidth]{src/\@lang/license/\@faculty.pdf}
+            \includegraphics[width=1.19\textwidth]{src/\@lang/license/\@faculty.pdf}
         }
     \end{figure}
 }
